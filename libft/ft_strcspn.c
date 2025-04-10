@@ -1,38 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strcspn.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/19 18:16:01 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/09 21:40:07 by yuerliu          ###   ########.fr       */
+/*   Created: 2025/04/09 20:15:20 by yuerliu           #+#    #+#             */
+/*   Updated: 2025/04/09 20:13:55 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+/*
+** ft_strcspn - Returns the length of the initial segment of 's' 
+** that consists entirely of characters not in 'reject'
+*/
+size_t	ft_strcspn(const char *s, const char *reject)
 {
-	char	*new;
 	size_t	i;
-	size_t	len1;
-	size_t	len2;
+	size_t	j;
 
-	if (!s1 && !s2)
-		return (NULL);
-	len1 = s1 ? ft_strlen(s1) : 0;
-	len2 = s2 ? ft_strlen(s2) : 0;
-	new = (char *)malloc((sizeof(char)) * (len1 + len2 + 1));
-	if (new == NULL)
-		return (NULL);
 	i = 0;
-	if (s1)
-		while (*s1 != '\0')
-			new[i++] = *s1++;
-	if (s2)
-		while (*s2 != '\0')
-			new[i++] = *s2++;
-	new[i] = '\0';
-	return (new);
-}
+	while (s[i] != '\0')
+	{
+		j = 0;
+		while (reject[j] != '\0')
+		{
+			if (s[i] == reject[j])
+				return (i);
+			j++;
+		}
+		i++;
+	}
+	return (i);
+} 

@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:18:37 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/02 21:09:32 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/09 21:40:12 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ typedef struct s_game
 void			key_hook(mlx_key_data_t keydata, void *param);
 void			init_game_state(t_game *game);
 void			read_map_dimensions(t_game *pot, const char *map_path);
-void			get_map_contents(t_game *pot, const char *map_path);
 void			parse_map(t_game *game, const char *map_path);
 void			rdnget_map(t_game *pot, const char *mapath);
 void			falnem(t_game *name);
@@ -87,5 +86,7 @@ void			move_up(t_game *map);
 void			move_down(t_game *map);
 void			move_left(t_game *map);
 void			move_right(t_game *map);
+
+// void			get_map_contents(t_game *pot, const char *map_path);
 
 #endif

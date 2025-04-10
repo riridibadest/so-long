@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 16:00:09 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/02 22:24:17 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/09 21:50:55 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,18 @@
 
 void	error_exit(t_game *game, const char *msg)
 {
-	clean_up(game, msg);
-	ft_printf(RED "Error: %s\n" RESET, msg);
+	char *safe_msg = NULL;
+	
+	if (msg)
+		safe_msg = ft_strdup(msg);
+	clean_up(game, NULL);
+	if (safe_msg)
+	{
+		ft_printf(RED "Error: %s\n" RESET, safe_msg);
+		free(safe_msg);
+	}
+	else
+		ft_printf(RED "Error: Unknown error\n" RESET);
 	exit(EXIT_FAILURE);
 }
 
@@ -23,6 +33,7 @@ void	clean_up(t_game *game, const char *msg)
 {
 	int	y;
 
+	(void)msg;
 	if (!game)
 		return ;
 	if (game->map)
@@ -41,5 +52,4 @@ void	clean_up(t_game *game, const char *msg)
 		mlx_delete_image(game->mlx, game->wmage);
 	if (game->mlx)
 		mlx_terminate(game->mlx);
-	ft_printf(RED "Error: %s\n" RESET, &msg);
 }

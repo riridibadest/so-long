@@ -8,10 +8,10 @@ ft_toupper.c ft_isalnum.c ft_isascii.c ft_memset.c ft_bzero.c \
 ft_memcpy.c ft_memmove.c ft_strlcpy.c ft_strchr.c ft_putstr_fd.c \
 ft_strrchr.c ft_memchr.c ft_memcmp.c ft_strnstr.c ft_putnbr_fd.c \
 ft_substr.c ft_strjoin.c ft_strtrim.c ft_putchar_fd.c ft_putendl_fd.c \
-ft_itoa.c ft_striteri.c ft_split.c ft_strmapi.c ft_printf/ft_printf.c \
+ft_itoa.c ft_striteri.c ft_split.c ft_strmapi.c ft_strcspn.c ft_printf/ft_printf.c \
 ft_printf/check_speci.c ft_printf/speci_c.c ft_printf/speci_ind.c \
 ft_printf/speci_p.c ft_printf/speci_s.c ft_printf/speci_u.c ft_printf/speci_x.c \
-ft_printf/speci_xup.c
+ft_printf/speci_xup.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 
 BONUS_SRC = ft_lstnew_bonus.c\
 		ft_lstadd_front_bonus.c\

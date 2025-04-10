@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 15:55:23 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/02 20:47:22 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/09 20:27:55 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ void	falnem(t_game *name)
 	size_t	l;
 	char	*ext;
 
+	if (!name->filename)
+		error_rd();
 	l = ft_strlen(name->filename);
 	if (l < 5)
 		error_rd();
 	ext = ft_substr(name->filename, l - 4, 4);
-	if (ft_strncmp(ext, ".ber", 4) != 0)
+	if (!ext || ft_strncmp(ext, ".ber", 4) != 0)
 	{
 		free(ext);
 		error_rd();

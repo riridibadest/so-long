@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 19:00:18 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/03 19:21:23 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/09 21:47:29 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,26 +171,30 @@ static char	*letitgo(char *rdsponge, char **line)
 {
 	char	*endpoint;
 	size_t	l2b_trim;
-	ssize_t	cut;
+	char	*new_rdsponge;
 
+	printf("DEBUG: letitgo - rdsponge: %p\n", (void *)rdsponge);
 	endpoint = gnl_strchr(rdsponge, '\n');
 	if (!endpoint)
 		endpoint = gnl_strchr(rdsponge, '\0');
 	l2b_trim = endpoint - rdsponge;
 	*line = gnl_substr(rdsponge, 0, l2b_trim + (endpoint && *endpoint == '\n'));
+	printf("DEBUG: Allocated line at %p\n", (void *)*line);
 	if (!*line)
 	{
 		free(rdsponge);
 		return (NULL);
 	}
-	cut = gnl_strlen(rdsponge) - l2b_trim;
 	if (*(endpoint) == '\0')
 	{
 		free(rdsponge);
 		return (NULL);
 	}
-	shorty(rdsponge, &rdsponge[l2b_trim + 1], cut);
-	return (rdsponge);
+	new_rdsponge = gnl_strdup(endpoint + 1);
+	printf("DEBUG: Allocated new_rdsponge at %p\n", (void *)new_rdsponge);
+	free(rdsponge);
+	printf("DEBUG: Freed rdsponge at %p\n", (void *)rdsponge);
+	return (new_rdsponge);
 }
 
 char	*get_next_line(int fd)
@@ -198,6 +202,7 @@ char	*get_next_line(int fd)
 	static char	*rdsponge;
 	char		*line;
 
+	rdsponge = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) == -1)
 		return (free(rdsponge), rdsponge = NULL, NULL);
 	rdsponge = get_da_file(fd, rdsponge);

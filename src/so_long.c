@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 16:00:19 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/02 21:55:08 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/09 20:34:21 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,14 @@ int	main(int ac, char **av)
 	if (ac != 2)
 		error_rd();
 	init_game_state(&game);
+	game.filename = ft_strdup(av[1]);
+	if (!game.filename)
+		error_exit(&game, "Memory allocation failed");
+	parse_map(&game, av[1]);
 	game.mlx = mlx_init(game.map_width * TILE_SIZE, game.map_height * TILE_SIZE,
 			"so_long", false);
 	if (!game.mlx)
 		error_exit(&game, "MLX initialization failed");
-	parse_map(&game, av[1]);
 	game.wmage = mlx_new_image(game.mlx, game.map_width * TILE_SIZE,
 			game.map_height * TILE_SIZE);
 	if (!game.wmage)
@@ -50,6 +53,6 @@ int	main(int ac, char **av)
 	render_map(&game);
 	mlx_key_hook(game.mlx, key_hook, &game);
 	mlx_loop(game.mlx);
-	clean_up(&game, "Game exited normally");
+	clean_up(&game, NULL);
 	return (0);
 }

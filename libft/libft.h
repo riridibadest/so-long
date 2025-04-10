@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 22:13:37 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/03/22 18:53:24 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/09 20:13:43 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char				*ft_itoa(int n);
 void				ft_striteri(char *s, void (*f)(unsigned int, char *));
 char				**ft_split(char const *s, char c);
 char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+size_t				ft_strcspn(const char *s, const char *reject);
 
 t_list				*ft_lstnew(void *content);
 void				ft_lstadd_front(t_list **lst, t_list *new);

@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 22:06:00 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/03 19:22:12 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/09 18:44:56 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,16 @@ size_t	gnl_strlen(char const *str)
 	return (n);
 }
 
-char	*gnl_strchr(char *s, int c)
+char	*gnl_strchr(const char *str, int character)
 {
-	while (*s != '\0')
+	while (*str != '\0')
 	{
-		if (*s == (char)c)
-			return ((char *)s);
-		s++;
+		if (*str == (char)character)
+			return ((char *)str);
+		str++;
 	}
-	if (c == '\0' || *s == (char)c)
-		return ((char *)s);
+	if (character == '\0' || *str == (char)character)
+		return ((char *)str);
 	return (NULL);
 }
 

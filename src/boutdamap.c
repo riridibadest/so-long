@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 15:20:08 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/02 22:22:29 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/09 21:43:55 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,64 +101,34 @@ void	read_map_dimensions(t_game *pot, const char *map_path)
 // 		error_exit(g, "Map width mismatch");
 // }
 
-// void	get_map_contents(t_game *pot, const char *map_path)
-// {
-// 	int		fd;
-// 	char	*line;
-// 	int		y;
-
-// 	y = 0;
-// 	fd = open(map_path, O_RDONLY);
-// 	if (fd < 0)
-// 		error_rd();
-// 	pot->map = ft_calloc(pot->map_height + 1, sizeof(char *));
-// 	if (!pot->map)
-// 		error_exit(pot, "Can't Save Ya");
-// 	while (y < pot->map_height)
-// 	{
-// 		line = get_next_line(fd);
-// 		if (!line)
-// 			break ;
-// 		pot->map[y] = ft_calloc(pot->map_width + 1, sizeof(char *));
-// 		if (!pot->map[y])
-// 			error_exit(pot, "Can't Save Ya");
-// 		ft_strlcpy(pot->map[y], line, pot->map_width + 1);
-// 		free(line);
-// 		y++;
-// 	}
-// 	close(fd);
-// }
-
 void	parse_map(t_game *game, const char *map_path)
 {
 	init_game_state(game);
 	falnem(game);
-	rdnget_map(game, map_path);
 	read_map_dimensions(game, map_path);
-	get_map_contents(game, map_path);
+	rdnget_map(game, map_path);
 	check_existence(game);
 	check_walls(game);
 	check_content(game);
-	free(game->line);
-	game->line = NULL;
 }
 
 void	rdnget_map(t_game *pot, const char *mapath)
 {
 	int		fd;
 	char	*temp;
+	char	*old_line;
 
 	pot->line = NULL;
 	fd = open(mapath, O_RDONLY);
 	if (fd == -1)
 		error_rd();
-	while (1)
+	while ((temp = get_next_line(fd)))
 	{
-		temp = get_next_line(fd);
-		if (!temp)
-			break ;
+		old_line = pot->line;
 		pot->line = ft_strjoin(pot->line, temp);
 		free(temp);
+		if (old_line)
+			free(old_line);
 		if (!pot->line)
 			error_exit(pot, "Cant get map");
 	}
@@ -167,4 +137,47 @@ void	rdnget_map(t_game *pot, const char *mapath)
 	if (!pot->map)
 		error_exit(pot, "Cant save da map");
 	free(pot->line);
+	pot->line = NULL;
 }
+
+/* 
+void	get_map_contents(t_game *pot, const char *map_path)
+{
+	int		fd;
+	char	*line;
+	int		y;
+
+	fd = open(map_path, O_RDONLY);
+	line = NULL;
+	y = 0;
+	if (fd < 0)
+		error_exit(pot, "Can't open map file");
+	pot->map = ft_calloc(pot->map_height + 1, sizeof(char *));
+	if (!pot->map)
+	{
+		close(fd);
+		error_exit(pot, "Map allocation failed");
+	}
+	while (y < pot->map_height)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break;
+		if (ft_strchr(line, '\n'))
+			line[ft_strcspn(line, "\n")] = '\0';
+		pot->map[y] = ft_calloc(pot->map_width + 1, sizeof(char));
+		if (!pot->map[y])
+		{
+			free(line);
+			close(fd);
+			error_exit(pot, "Row allocation failed");
+		}
+		ft_strlcpy(pot->map[y], line, pot->map_width + 1);
+		free(line);
+		y++;
+	}
+	close(fd);
+	if (y != pot->map_height)
+		error_exit(pot, "Incomplete map data");
+}
+*/
