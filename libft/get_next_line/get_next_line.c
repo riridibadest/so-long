@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 19:00:18 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/09 21:47:29 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/10 21:05:59 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,13 +173,11 @@ static char	*letitgo(char *rdsponge, char **line)
 	size_t	l2b_trim;
 	char	*new_rdsponge;
 
-	printf("DEBUG: letitgo - rdsponge: %p\n", (void *)rdsponge);
 	endpoint = gnl_strchr(rdsponge, '\n');
 	if (!endpoint)
 		endpoint = gnl_strchr(rdsponge, '\0');
 	l2b_trim = endpoint - rdsponge;
 	*line = gnl_substr(rdsponge, 0, l2b_trim + (endpoint && *endpoint == '\n'));
-	printf("DEBUG: Allocated line at %p\n", (void *)*line);
 	if (!*line)
 	{
 		free(rdsponge);
@@ -191,9 +189,7 @@ static char	*letitgo(char *rdsponge, char **line)
 		return (NULL);
 	}
 	new_rdsponge = gnl_strdup(endpoint + 1);
-	printf("DEBUG: Allocated new_rdsponge at %p\n", (void *)new_rdsponge);
 	free(rdsponge);
-	printf("DEBUG: Freed rdsponge at %p\n", (void *)rdsponge);
 	return (new_rdsponge);
 }
 

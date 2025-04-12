@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 16:00:09 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/09 21:50:55 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/12 22:07:10 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ void	error_exit(t_game *game, const char *msg)
 		safe_msg = ft_strdup(msg);
 	clean_up(game, NULL);
 	if (safe_msg)
-	{
 		ft_printf(RED "Error: %s\n" RESET, safe_msg);
-		free(safe_msg);
-	}
 	else
 		ft_printf(RED "Error: Unknown error\n" RESET);
 	exit(EXIT_FAILURE);

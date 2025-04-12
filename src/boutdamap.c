@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 15:20:08 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/09 21:43:55 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/12 22:53:08 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,6 @@
 
 void	init_game_state(t_game *game)
 {
-	if (game->map)
-		clean_up(game, "There is Sth.");
-	if (game->uwin)
-		mlx_delete_image(game->mlx, game->uwin);
 	game->goodies = 0;
 	game->exits = 0;
 	game->bodycount = 0;
@@ -29,6 +25,7 @@ void	init_game_state(t_game *game)
 	game->map = NULL;
 	game->mlx = NULL;
 	game->uwin = NULL;
+	printf("a\n");
 }
 
 void	read_map_dimensions(t_game *pot, const char *map_path)
@@ -40,8 +37,6 @@ void	read_map_dimensions(t_game *pot, const char *map_path)
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
 		error_rd();
-	pot->map_width = 0;
-	pot->map_height = 0;
 	while (1)
 	{
 		line = get_next_line(fd);
@@ -103,7 +98,6 @@ void	read_map_dimensions(t_game *pot, const char *map_path)
 
 void	parse_map(t_game *game, const char *map_path)
 {
-	init_game_state(game);
 	falnem(game);
 	read_map_dimensions(game, map_path);
 	rdnget_map(game, map_path);
@@ -115,29 +109,26 @@ void	parse_map(t_game *game, const char *map_path)
 void	rdnget_map(t_game *pot, const char *mapath)
 {
 	int		fd;
-	char	*temp;
-	char	*old_line;
 
-	pot->line = NULL;
+	pot->mapfile = NULL;
 	fd = open(mapath, O_RDONLY);
 	if (fd == -1)
 		error_rd();
-	while ((temp = get_next_line(fd)))
+	while (pot->line)
 	{
-		old_line = pot->line;
-		pot->line = ft_strjoin(pot->line, temp);
-		free(temp);
-		if (old_line)
-			free(old_line);
-		if (!pot->line)
+		pot->line = get_next_line(fd);
+		if (pot->line == NULL)
+			break ;
+		pot->mapfile = ft_strjoin(pot->mapfile, pot->line);
+		pot->line = NULL;
+		if (!pot->mapfile)
 			error_exit(pot, "Cant get map");
 	}
 	close(fd);
-	pot->map = ft_split(pot->line, '\n');
+	pot->map = ft_split(pot->mapfile, '\n');
 	if (!pot->map)
 		error_exit(pot, "Cant save da map");
-	free(pot->line);
-	pot->line = NULL;
+	pot->mapfile = NULL;
 }
 
 /* 

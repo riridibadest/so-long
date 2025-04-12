@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:18:37 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/09 21:40:12 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/12 22:56:28 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_game
 	mlx_image_t	*swifeetnbr;
 	mlx_image_t	*uwin;
 	char		*filename;
-	char		*file;
+	char		*mapfile;
 	char		**map;
 	char		*line;
 	int			player_x;
