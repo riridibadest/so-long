@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 22:13:37 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/09 20:13:43 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/13 22:25:28 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include <string.h>
 # include <unistd.h>
 # include "ft_printf/ft_printf.h"
-# include "get_next_line/get_next_line.h"
 
 typedef struct s_list
 {

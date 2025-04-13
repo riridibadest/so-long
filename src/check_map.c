@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 15:55:23 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/09 20:27:55 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/13 20:10:15 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,19 @@ void	check_walls(t_game *pot)
 	int	x;
 	int	y;
 
+	if (!pot->map)
+		return ;
 	y = 0;
 	while (y < pot->map_height)
 	{
+		if (!pot->map[y])
+			return ;
 		x = 0;
 		while (x < pot->map_width)
 		{
-			if ((y == 0 || y == pot->map_height - 1) && pot->map[y][x] != '1')
+			if ((y == pot->map_height - 1) && pot->map[y][x] != '1')
 				error_wall();
-			if ((x == 0 || x == pot->map_width - 1) && pot->map[y][x] != '1')
+			if ((x == pot->map_width - 1) && pot->map[y][x] != '1')
 				error_wall();
 			x++;
 		}
@@ -76,9 +80,16 @@ void	check_content(t_game *pot)
 	int	x;
 	int	y;
 
+	if (!pot->map)
+	{
+		printf("-----------cc1--------------\n");
+		error_badmap();
+	}
 	y = -1;
 	while (++y < pot->map_height)
 	{
+		if (!pot->map[y])
+			return ;
 		x = -1;
 		while (++x < pot->map_width)
 		{

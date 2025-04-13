@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 21:50:55 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/03 19:23:24 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/13 22:36:26 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 8
+#  define BUFFER_SIZE 20
 # endif
 
 # include <fcntl.h>
@@ -22,7 +22,6 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# include "../libft.h"
 
 size_t	gnl_strlen(char const *str);
 size_t	gnl_strlcpy(char *dest, const char *src, size_t size);

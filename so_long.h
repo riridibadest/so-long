@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:18:37 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/12 22:56:28 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/13 22:46:10 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "MLX42/include/MLX42/MLX42.h"
 # include "libft/libft.h"
+# include "libft/get_next_line/get_next_line.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -24,9 +25,9 @@
 # define RED "\033[31m"
 # define GREEN "\033[32m"
 # define RESET "\033[0m"
-# define WINDOW_WIDTH 1280
-# define WINDOW_HEIGHT 720
-# define TILE_SIZE 64
+# define WINDOW_WIDTH 10
+# define WINDOW_HEIGHT 7
+# define TILE_SIZE 32
 
 typedef struct s_game
 {

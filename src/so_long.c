@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 16:00:19 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/12 22:55:02 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/13 20:55:45 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,24 @@ int	main(int ac, char **av)
 	printf("-----------4--------------\n");
 	parse_map(&game, av[1]);
 	printf("-----------5--------------\n");
-	game.mlx = mlx_init(game.map_width * TILE_SIZE, game.map_height * TILE_SIZE,
+	game.mlx = mlx_init(WINDOW_WIDTH * TILE_SIZE, WINDOW_HEIGHT * TILE_SIZE,
 			"so_long", false);
-	printf("-----------6-1-------------\n"); 
+	printf("-----------6--------------\n"); 
 	if (!game.mlx)
 		error_exit(&game, "MLX initialization failed");
-	printf("-----------6--------------\n"); 
+	printf("-----------7--------------\n"); 
 	game.wmage = mlx_new_image(game.mlx, game.map_width * TILE_SIZE,
 			game.map_height * TILE_SIZE);
 	if (!game.wmage)
 		error_exit(&game, "Image creation failed");
+	printf("-----------8--------------\n"); 
 	mlx_image_to_window(game.mlx, game.wmage, 0, 0);
+	printf("-----------9--------------\n"); 
 	render_map(&game);
+	printf("-----------10--------------\n"); 
 	mlx_key_hook(game.mlx, key_hook, &game);
+	printf("-----------11--------------\n"); 
 	mlx_loop(game.mlx);
 	clean_up(&game, NULL);
-	return (0);
+	return (EXIT_SUCCESS);
 }

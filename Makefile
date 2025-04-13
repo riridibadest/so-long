@@ -1,6 +1,7 @@
 NAME = so_long
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+# CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = 
 RM = rm -f
 
 # Library paths
@@ -20,7 +21,7 @@ all: $(NAME)
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX) $(MLX_FLAGS) -o $(NAME)
-	@echo "Game compiled! Run with: ./$(NAME) maps/map1.ber"
+	@echo "Game compiled! Run with: ./$(NAME) map/map1.ber"
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@

@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 18:46:23 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/02 20:55:26 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/13 22:04:47 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void	fill_image(mlx_image_t *img, uint32_t color)
 
 void	init_mlx_objects(t_game *game)
 {
-	game->mlx = mlx_init(game->map_width * TILE_SIZE,
-							game->map_height * TILE_SIZE,
-							"Game",
-							false);
-	if (!game->mlx)
-		error_exit(game, "MLX initialization failed");
+	// game->mlx = mlx_init(game->map_width * TILE_SIZE,
+	// 						game->map_height * TILE_SIZE,
+	// 						"Game",
+	// 						false);
+	// if (!game->mlx)
+	// 	error_exit(game, "MLX initialization failed");
 	game->player = mlx_new_image(game->mlx, TILE_SIZE, TILE_SIZE);
 	mlx_image_to_window(game->mlx, game->player, game->player_x,
 			game->player_y);
@@ -67,15 +67,25 @@ void	render_tile(t_game *game, int x, int y)
 
 	px = x * TILE_SIZE;
 	py = y * TILE_SIZE;
-	if (game->map[x][y] == '1')
+	if (!game->map)
+	{
+		printf("Error: map is NULL\n");
+		return ;
+	}
+	if (!game->map[y])
+	{
+		printf("Error: map[%d] is NULL\n", y);
+		return ;
+	}
+	if (game->map[y][x] == '1')
 		mlx_image_to_window(game->mlx, game->wall, px, py);
-	else if (game->map[x][y] == '0')
+	else if (game->map[y][x] == '0')
 		mlx_image_to_window(game->mlx, game->floor, px, py);
-	else if (game->map[x][y] == 'P')
+	else if (game->map[y][x] == 'P')
 		mlx_image_to_window(game->mlx, game->player, px, py);
-	else if (game->map[x][y] == 'C')
+	else if (game->map[y][x] == 'C')
 		mlx_image_to_window(game->mlx, game->goodie, px, py);
-	else if (game->map[x][y] == 'E')
+	else if (game->map[y][x] == 'E')
 		mlx_image_to_window(game->mlx, game->exit, px, py);
 }
 
@@ -84,15 +94,8 @@ void	render_map(t_game *game)
 	int	y;
 	int	x;
 
-	if (game->wall->count > 0)
-	{
-		mlx_delete_image(game->mlx, game->wall);
-		mlx_delete_image(game->mlx, game->floor);
-		mlx_delete_image(game->mlx, game->player);
-		mlx_delete_image(game->mlx, game->goodie);
-		mlx_delete_image(game->mlx, game->exit);
-	}
 	init_mlx_objects(game);
+	printf("-----------rm1-------------\n");
 	y = 0;
 	while (y < game->map_height)
 	{
@@ -100,6 +103,7 @@ void	render_map(t_game *game)
 		while (x < game->map_width)
 		{
 			render_tile(game, x, y);
+			printf("-----------rm2-------------\n");
 			x++;
 		}
 		y++;

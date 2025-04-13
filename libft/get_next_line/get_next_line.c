@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 19:00:18 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/10 21:05:59 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/13 22:44:07 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ static char	*letitgo(char *rdsponge, char **line)
 {
 	char	*endpoint;
 	size_t	l2b_trim;
-	char	*new_rdsponge;
+	ssize_t	cut;
 
 	endpoint = gnl_strchr(rdsponge, '\n');
 	if (!endpoint)
@@ -183,14 +183,14 @@ static char	*letitgo(char *rdsponge, char **line)
 		free(rdsponge);
 		return (NULL);
 	}
+	cut = gnl_strlen(rdsponge) - l2b_trim;
 	if (*(endpoint) == '\0')
 	{
 		free(rdsponge);
 		return (NULL);
 	}
-	new_rdsponge = gnl_strdup(endpoint + 1);
-	free(rdsponge);
-	return (new_rdsponge);
+	shorty(rdsponge, &rdsponge[l2b_trim + 1], cut);
+	return (rdsponge);
 }
 
 char	*get_next_line(int fd)
@@ -198,7 +198,6 @@ char	*get_next_line(int fd)
 	static char	*rdsponge;
 	char		*line;
 
-	rdsponge = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, NULL, 0) == -1)
 		return (free(rdsponge), rdsponge = NULL, NULL);
 	rdsponge = get_da_file(fd, rdsponge);
