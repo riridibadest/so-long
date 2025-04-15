@@ -6,12 +6,11 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 15:22:10 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/02 20:53:21 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/15 18:01:37 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
 
 void	key_hook(mlx_key_data_t keydata, void *param)
 {
@@ -22,6 +21,12 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	{
 		if (keydata.key == MLX_KEY_ESCAPE)
 			mlx_close_window(game->mlx);
+		if (game->game_won)
+		{
+			if (keydata.key == MLX_KEY_R)
+				game->game_won = 0;
+			return ;
+		}
 		if (keydata.key == MLX_KEY_W || keydata.key == MLX_KEY_UP)
 			move_up(game);
 		if (keydata.key == MLX_KEY_S || keydata.key == MLX_KEY_DOWN)
@@ -50,25 +55,33 @@ void	handle_move(t_game *g, int dx, int dy)
 	nx = g->player_x + dx;
 	ny = g->player_y + dy;
 	if (g->game_won || !is_valid_move(g, nx, ny))
-		return ;
-	if (!is_valid_move(g, nx, ny))
-		return ;
+		return;
+	if (g->map[ny][nx] == 'E')
+	{
+		if (g->goodies == 0)
+		{
+			g->game_won = 1;
+			show_end_screen(g);
+		}
+	}
 	if (g->map[ny][nx] == 'C')
 	{
 		g->goodies--;
 		g->map[ny][nx] = '0';
 	}
-	if (g->map[ny][nx] == 'E')
-	{
-		if (g->goodies == 0)
-			show_end_screen(g);
-		return ;
-	}
-	g->map[g->player_y][g->player_x] = '0';
-	g->player_x = nx;
-	g->player_y = ny;
-	g->map[ny][nx] = 'P';
-	loop_feet(g);
+	g->player_x = nx;  // Update player's x coordinate
+	g->player_y = ny;  // Update player's y coordinate
+	g->map[ny][nx] = 'P';  // Set new position to player
+	// Render the updated map to reflect changes
+	render_map(g);
+	// Increment step counter
+	g->talorswifeet++;
+	// Update step counter display
+	char *str = ft_itoa(g->talorswifeet);
+	if (g->swifeetnbr)
+		mlx_delete_image(g->mlx, g->swifeetnbr);
+	g->swifeetnbr = mlx_put_string(g->mlx, str, 10, 10);
+	free(str);
 }
 
 void	loop_feet(t_game *g)

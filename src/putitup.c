@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 18:46:23 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/13 22:04:47 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/15 18:00:10 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,49 +15,34 @@
 // #define WIDTH 400
 // #define HEIGHT 400
 
-int32_t	ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
+mlx_image_t	*load_png(t_game *game, char *path)
 {
-	return (r << 24 | g << 16 | b << 8 | a);
-}
+	mlx_texture_t	*pimp;
+	mlx_image_t		*img;
 
-void	fill_image(mlx_image_t *img, uint32_t color)
-{
-	int	y;
-	int	x;
-
-	y = 0;
-	x = 0;
-	while ((const uint32_t)y < img->height)
+	pimp = mlx_load_png(path);
+	if (!pimp)
 	{
-		while ((const uint32_t)x < img->width)
-		{
-			mlx_put_pixel(img, x, y, color);
-			x++;
-		}
-		y++;
+		ft_putendl_fd("PNG load error", 2);
+		exit(1);
 	}
+	img = mlx_texture_to_image(game->mlx, pimp);
+	if (!img)
+	{
+		ft_putendl_fd("Failed to convert PNG to image", 2);
+		exit(1);
+	}
+	mlx_delete_texture(pimp);
+	return (img);
 }
 
 void	init_mlx_objects(t_game *game)
 {
-	// game->mlx = mlx_init(game->map_width * TILE_SIZE,
-	// 						game->map_height * TILE_SIZE,
-	// 						"Game",
-	// 						false);
-	// if (!game->mlx)
-	// 	error_exit(game, "MLX initialization failed");
-	game->player = mlx_new_image(game->mlx, TILE_SIZE, TILE_SIZE);
-	mlx_image_to_window(game->mlx, game->player, game->player_x,
-			game->player_y);
-	fill_image(game->player, 0xFF0000FF);
-	game->floor = mlx_new_image(game->mlx, TILE_SIZE, TILE_SIZE);
-	fill_image(game->floor, 0x333333FF);
-	game->wall = mlx_new_image(game->mlx, TILE_SIZE, TILE_SIZE);
-	fill_image(game->wall, 0xFFFFFFFF);
-	game->goodie = mlx_new_image(game->mlx, TILE_SIZE, TILE_SIZE);
-	fill_image(game->goodie, 0x0000FFFF);
-	game->exit = mlx_new_image(game->mlx, TILE_SIZE, TILE_SIZE);
-	fill_image(game->exit, 0xFFFF00FF);
+	game->player = load_png(game, "pics/riri.png");
+	game->floor = load_png(game, "pics/land.png");
+	game->wall = load_png(game, "pics/wall.png");
+	game->goodie = load_png(game, "pics/shrum.png");
+	game->exit = load_png(game, "pics/exit.png");
 }
 
 void	render_tile(t_game *game, int x, int y)
@@ -95,7 +80,17 @@ void	render_map(t_game *game)
 	int	x;
 
 	init_mlx_objects(game);
-	printf("-----------rm1-------------\n");
+	// if (game->player->count > 0)
+	// 	mlx_delete_image(game->mlx, game->player);
+	// if (game->floor->count > 0)
+	// 	mlx_delete_image(game->mlx, game->floor);
+	// if (game->wall->count > 0)
+	// 	mlx_delete_image(game->mlx, game->wall);
+	// if (game->goodie->count > 0)
+	// 	mlx_delete_image(game->mlx, game->goodie);
+	// if (game->exit->count > 0)
+	// 	mlx_delete_image(game->mlx, game->exit);
+	// init_mlx_objects(game);
 	y = 0;
 	while (y < game->map_height)
 	{
@@ -103,10 +98,9 @@ void	render_map(t_game *game)
 		while (x < game->map_width)
 		{
 			render_tile(game, x, y);
-			printf("-----------rm2-------------\n");
 			x++;
 		}
 		y++;
 	}
-	mlx_set_instance_depth(game->player->instances, 1);
+	mlx_set_instance_depth(game->player->instances, 10);
 }

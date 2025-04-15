@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:18:37 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/13 22:46:10 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/15 18:02:55 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@
 # define RED "\033[31m"
 # define GREEN "\033[32m"
 # define RESET "\033[0m"
-# define WINDOW_WIDTH 10
-# define WINDOW_HEIGHT 7
-# define TILE_SIZE 32
+# define WINDOW_WIDTH 15
+# define WINDOW_HEIGHT 10
+# define TILE_SIZE 100
 
 typedef struct s_game
 {
@@ -87,6 +87,7 @@ void			move_up(t_game *map);
 void			move_down(t_game *map);
 void			move_left(t_game *map);
 void			move_right(t_game *map);
+mlx_image_t	*load_png(t_game *game, char *path);
 
 // void			get_map_contents(t_game *pot, const char *map_path);
 

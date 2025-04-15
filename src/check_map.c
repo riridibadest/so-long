@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 15:55:23 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/13 20:10:15 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/14 15:05:24 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,10 @@ void	check_content(t_game *pot)
 			else if (pot->map[y][x] == 'E')
 				pot->exits++;
 			else if (pot->map[y][x] == 'C')
+			{
 				pot->goodies++;
+				printf("%d\n", pot->goodies);
+			}
 		}
 	}
 	if (pot->bodycount != 1 || pot->exits != 1 || pot->goodies < 1)

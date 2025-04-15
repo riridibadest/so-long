@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 16:00:09 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/12 22:07:10 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/15 17:50:46 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	error_exit(t_game *game, const char *msg)
 {
-	char *safe_msg = NULL;
-	
+	char	*safe_msg;
+
+	safe_msg = NULL;
 	if (msg)
 		safe_msg = ft_strdup(msg);
 	clean_up(game, NULL);
