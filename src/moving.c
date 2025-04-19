@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 15:22:10 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/15 18:01:37 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/18 17:07:21 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,44 +54,38 @@ void	handle_move(t_game *g, int dx, int dy)
 
 	nx = g->player_x + dx;
 	ny = g->player_y + dy;
-	if (g->game_won || !is_valid_move(g, nx, ny))
-		return;
+	if (!is_valid_move(g, nx, ny))
+		return ;
 	if (g->map[ny][nx] == 'E')
 	{
 		if (g->goodies == 0)
 		{
+			g->map[g->player_y][g->player_x] = '0';
+			g->player_x = nx;
+			g->player_y = ny;
 			g->game_won = 1;
-			show_end_screen(g);
+			return (display_end_screen(g));
 		}
+		return ;
 	}
-	if (g->map[ny][nx] == 'C')
-	{
+	else if (g->map[ny][nx] == 'C')
 		g->goodies--;
-		g->map[ny][nx] = '0';
-	}
-	g->player_x = nx;  // Update player's x coordinate
-	g->player_y = ny;  // Update player's y coordinate
-	g->map[ny][nx] = 'P';  // Set new position to player
-	// Render the updated map to reflect changes
-	render_map(g);
-	// Increment step counter
-	g->talorswifeet++;
-	// Update step counter display
-	char *str = ft_itoa(g->talorswifeet);
-	if (g->swifeetnbr)
-		mlx_delete_image(g->mlx, g->swifeetnbr);
-	g->swifeetnbr = mlx_put_string(g->mlx, str, 10, 10);
-	free(str);
+	g->map[g->player_y][g->player_x] = '0';
+	g->player_x = nx;
+	g->player_y = ny;
+	g->map[ny][nx] = 'P';
 }
 
 void	loop_feet(t_game *g)
 {
 	char	*str;
 
+	if (g->game_won == 1)
+		return ;
 	g->talorswifeet++;
-	render_map(g);
-	mlx_delete_image(g->mlx, g->swifeetnbr);
 	str = ft_itoa(g->talorswifeet);
+	if (g->swifeetnbr)
+		mlx_delete_image(g->mlx, g->swifeetnbr);
 	g->swifeetnbr = mlx_put_string(g->mlx, str, 10, 10);
 	free(str);
 }

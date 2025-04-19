@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:18:37 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/15 18:02:55 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/18 21:03:50 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define SO_LONG_H
 
 # include "MLX42/include/MLX42/MLX42.h"
-# include "libft/libft.h"
 # include "libft/get_next_line/get_next_line.h"
+# include "libft/libft.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -25,8 +25,6 @@
 # define RED "\033[31m"
 # define GREEN "\033[32m"
 # define RESET "\033[0m"
-# define WINDOW_WIDTH 15
-# define WINDOW_HEIGHT 10
 # define TILE_SIZE 100
 
 typedef struct s_game
@@ -39,6 +37,7 @@ typedef struct s_game
 	mlx_image_t	*wall;
 	mlx_image_t	*floor;
 	mlx_image_t	*swifeetnbr;
+	mlx_image_t	*trip;
 	mlx_image_t	*uwin;
 	char		*filename;
 	char		*mapfile;
@@ -87,8 +86,10 @@ void			move_up(t_game *map);
 void			move_down(t_game *map);
 void			move_left(t_game *map);
 void			move_right(t_game *map);
-mlx_image_t	*load_png(t_game *game, char *path);
-
-// void			get_map_contents(t_game *pot, const char *map_path);
-
+mlx_image_t		*load_png(t_game *game, char *path);
+void			display_end_screen(t_game *g);
+void			render_end(t_game *game);
+void			check_content_help(t_game *pot, int y, int x);
+void			rdnget_help(t_game *pot, int fd);
+//void	clean_pic(t_game *game);
 #endif

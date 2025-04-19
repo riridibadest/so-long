@@ -1,7 +1,6 @@
 NAME = so_long
 CC = gcc
-# CFLAGS = -Wall -Wextra -Werror -g
-CFLAGS = 
+CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -f
 
 # Library paths
@@ -21,7 +20,7 @@ all: $(NAME)
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX) $(MLX_FLAGS) -o $(NAME)
-	@echo "Game compiled! Run with: ./$(NAME) map/map1.ber"
+	@echo "Game compiled! Run with: ./$(NAME) map/map%number.ber"
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
@@ -30,8 +29,10 @@ $(LIBFT):
 	make -C libft
 
 $(MLX):
-	cmake -B MLX42/build -S MLX42
-	make -C MLX42/build -j4
+		@if [ ! -d "MLX42" ]; then git clone https://github.com/codam-coding-college/MLX42; fi
+		@cd MLX42 && cmake -B build && cmake --build build -j4
+# cmake -B MLX42/build -S MLX42
+# make -C MLX42/build -j4
 
 clean:
 	make clean -C libft
@@ -39,6 +40,7 @@ clean:
 
 fclean: clean
 	make fclean -C libft
+	@rm -rf MLX42
 	$(RM) $(NAME)
 
 re: fclean all

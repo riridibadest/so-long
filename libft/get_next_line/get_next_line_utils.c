@@ -5,25 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/13 22:06:00 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/09 18:44:56 by yuerliu          ###   ########.fr       */
+/*   Created: 2025/04/19 14:44:25 by yuerliu           #+#    #+#             */
+/*   Updated: 2025/04/19 15:24:13 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-// void	*ft_calloc(size_t count, size_t size)
-// {
-// 	size_t	total;
-// 	void	*point;
-
-// 	total = count * size;
-// 	point = malloc(total);
-// 	if (point == NULL)
-// 		return (NULL);
-// 	ft_memset(point, 0, total);
-// 	return (point);
-// }
 
 size_t	gnl_strlcpy(char *dest, const char *src, size_t size)
 {

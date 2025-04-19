@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 21:37:08 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/02 00:38:46 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/18 19:15:24 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	error_rd(void)
 
 void	error_wall(void)
 {
-	ft_printf(RED "Error: No Wall Bruh" RESET "\n");
+	ft_printf(RED "Error: Wall Leaking Bruh" RESET "\n");
 	exit(EXIT_FAILURE);
 }
 

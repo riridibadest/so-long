@@ -6,7 +6,7 @@
 /*   By: yuerliu <yuerliu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 15:55:23 by yuerliu           #+#    #+#             */
-/*   Updated: 2025/04/14 15:05:24 by yuerliu          ###   ########.fr       */
+/*   Updated: 2025/04/18 19:38:02 by yuerliu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,11 @@ void	check_walls(t_game *pot)
 		x = 0;
 		while (x < pot->map_width)
 		{
+			if ((y == 0) && pot->map[y][x] != '1')
+				error_wall();
 			if ((y == pot->map_height - 1) && pot->map[y][x] != '1')
+				error_wall();
+			if ((x == 0) && pot->map[y][x] != '1')
 				error_wall();
 			if ((x == pot->map_width - 1) && pot->map[y][x] != '1')
 				error_wall();
@@ -81,10 +85,7 @@ void	check_content(t_game *pot)
 	int	y;
 
 	if (!pot->map)
-	{
-		printf("-----------cc1--------------\n");
 		error_badmap();
-	}
 	y = -1;
 	while (++y < pot->map_height)
 	{
@@ -95,21 +96,23 @@ void	check_content(t_game *pot)
 		{
 			if (!ft_strchr("01CEP", pot->map[y][x]))
 				error_content();
-			else if (pot->map[y][x] == 'P')
-			{
-				pot->player_x = x;
-				pot->player_y = y;
-				pot->bodycount++;
-			}
-			else if (pot->map[y][x] == 'E')
-				pot->exits++;
-			else if (pot->map[y][x] == 'C')
-			{
-				pot->goodies++;
-				printf("%d\n", pot->goodies);
-			}
+			check_content_help(pot, y, x);
 		}
 	}
 	if (pot->bodycount != 1 || pot->exits != 1 || pot->goodies < 1)
 		error_content();
+}
+
+void	check_content_help(t_game *pot, int y, int x)
+{
+	if (pot->map[y][x] == 'P')
+	{
+		pot->player_x = x;
+		pot->player_y = y;
+		pot->bodycount++;
+	}
+	else if (pot->map[y][x] == 'E')
+		pot->exits++;
+	else if (pot->map[y][x] == 'C')
+		pot->goodies++;
 }
